@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class Country(models.Model):
@@ -63,3 +64,43 @@ class Station(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.city}"
+
+
+class Route(models.Model):
+    """
+    Represent a train route between two stations.
+    """
+
+    source = models.ForeignKey(
+        Station,
+        on_delete=models.CASCADE,
+        related_name="routes_from"
+    )
+    destination = models.ForeignKey(
+        Station,
+        on_delete=models.CASCADE,
+        related_name="routes_to"
+    )
+    distance = models.PositiveIntegerField(
+        help_text="Distance between stations in kilometers."
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["source", "destination"],
+                name="unique_route"
+            )
+        ]
+
+    def clean(self):
+        # Source and destination not will be equal
+        if self.source == self.destination:
+            raise ValidationError("Source and destination cannot be the same station.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.source} → {self.destination}"

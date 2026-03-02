@@ -32,6 +32,10 @@ class City(models.Model):
 
 
 class Station(models.Model):
+    """
+    Represents a railway station with geographic coordinates.
+    """
+
     name = models.CharField(
         max_length=100,
         help_text="The name of the railway station"

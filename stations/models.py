@@ -2,18 +2,26 @@ from django.db import models
 
 
 class Country(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        help_text="The name of the country, e.g., 'Ukraine'"
+    )
 
     def __str__(self):
         return self.name
 
 
 class City(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(
+        max_length=100,
+        help_text="The name of the city, e.g., 'Lviv'"
+    )
     country = models.ForeignKey(
         Country,
         on_delete=models.CASCADE,
-        related_name="cities"
+        related_name="cities",
+        help_text="The country this city belongs to"
     )
 
     class Meta:

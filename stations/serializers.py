@@ -29,7 +29,7 @@ class StationSerializer(serializers.ModelSerializer):
 class RouteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Route
-        fields = ["id", "source", "destination", "travel_time"]
+        fields = ["id", "source", "destination", "distance"]
 
     def validate(self, data):
         if data["source"] == data["destination"]:

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'stations',
     'trains',
+    'journeys',
 ]
 
 MIDDLEWARE = [

@@ -13,6 +13,7 @@ from trains.views import (
     TrainTypeViewSet,
     TrainViewSet
 )
+from journeys.views import JourneyViewSet
 
 router = DefaultRouter()
 
@@ -24,6 +25,8 @@ router.register(r"stations/countries", CountryViewSet, basename="country")
 router.register(r"trains/crews", CrewViewSet, basename="crew")
 router.register(r"trains/train-types", TrainTypeViewSet, basename="train-type")
 router.register(r"trains/trains", TrainViewSet, basename="train")
+
+router.register(r"journeys/journey", JourneyViewSet, basename="journey")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
